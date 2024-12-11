@@ -1,12 +1,13 @@
 {
   "name": "smart-pantry",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "Jing Gu",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "release": "npx release-please release-pr", 
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
@@ -58,6 +59,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "release-please": "^16.15.0",
     "typescript": "~5.4.0"
   },
   "description": "An Ionic project"
