@@ -1,0 +1,7 @@
+{
+  "name": "Smart Pantry",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
