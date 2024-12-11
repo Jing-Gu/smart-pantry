@@ -1,8 +1,0 @@
-changelog:
-  section-title: '# Changelog'
-  version-resolver: 'v'
-
-versioning:
-  bump: 'minor'
-
-release-type: 'node'
