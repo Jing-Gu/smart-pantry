@@ -8,7 +8,16 @@
       "schematics": {
         "@ionic/angular-toolkit:page": {
           "styleext": "scss",
-          "standalone": true
+          "standalone": true,
+          "skipTests": true
+        },
+        "@ionic/angular-toolkit:component": {
+          "styleext": "scss",
+          "standalone": true,
+          "skipTests": true
+        },
+        "@ionic/angular-toolkit:service": {
+          "skipTests": true
         }
       },
       "root": "",
@@ -126,7 +135,8 @@
     }
   },
   "cli": {
-    "schematicCollections": ["@ionic/angular-toolkit"]
+    "schematicCollections": ["@ionic/angular-toolkit"],
+    "analytics": false
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {
