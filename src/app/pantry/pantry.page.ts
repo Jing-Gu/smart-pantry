@@ -29,7 +29,7 @@ import { add } from "ionicons/icons";
     IonToolbar,
     CommonModule,
     FormsModule,
-    RouterLink
+    RouterLink,
   ],
 })
 export class PantryPage implements OnInit {
