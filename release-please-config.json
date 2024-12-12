@@ -1,11 +1,10 @@
 {
-    "versioning": {
-      "bump": "minor"
-    },
-    "changelog": {
-      "section-title": "## Changelog",
-      "version-resolver": "v"
-    },
-    "release-type": "node"
-  }
-  
+  "versioning": {
+    "bump": "minor"
+  },
+  "changelog": {
+    "section-title": "## Changelog",
+    "version-resolver": "v"
+  },
+  "release-type": "node"
+}
