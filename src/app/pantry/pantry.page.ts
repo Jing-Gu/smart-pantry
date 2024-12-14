@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
@@ -13,6 +13,8 @@ import {
 } from "@ionic/angular/standalone";
 import { addIcons } from "ionicons";
 import { add } from "ionicons/icons";
+import { StorageService } from "../services/storage.service";
+import { pantryItem } from "../interfaces/pantry.interface";
 
 @Component({
   selector: "app-pantry",
@@ -37,5 +39,16 @@ export class PantryPage implements OnInit {
     addIcons({ add });
   }
 
-  ngOnInit() {}
+  private storageService = inject(StorageService);
+
+  protected pantryItems: pantryItem[] = [];
+
+  ngOnInit() {
+    this.storageService.getAllPantryItems();
+
+    this.storageService.pantryObs.subscribe(items => {
+      this.pantryItems = items;
+      console.log(items)
+    })
+  }
 }
