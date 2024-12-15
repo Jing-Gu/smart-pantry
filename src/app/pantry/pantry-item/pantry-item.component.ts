@@ -63,6 +63,8 @@ export class PantryItemComponent implements OnInit {
   protected preview: string | undefined = "";
 
   protected categories = categories;
+  protected imgUploadBase64: Uint8Array | undefined;
+  protected imageSize: string = "";
 
   protected pantryItemForm = this.fb.group({
     uuid: [uuidv4()],
@@ -73,9 +75,11 @@ export class PantryItemComponent implements OnInit {
     img: [""]
   })
 
-  onFileSelected(event: any) {
+  async onFileSelected(event: any) {
     this.errors = [];
     let reader = new FileReader();
+    const imageFile = event.target.files[0];
+    this.imageSize = `${(imageFile.size / 1024).toFixed(2) } KB`;
     if (event.target.files && event.target.files.length) {
       const file = event.target.files[0];
       if (file.size > this.maxSize) {
@@ -85,13 +89,14 @@ export class PantryItemComponent implements OnInit {
         ];
       }
       if (!this.errors?.length) {
-        reader.readAsDataURL(file);
         reader.onload = () => {
+          this.imgUploadBase64 = reader.result as Uint8Array;
           this.pantryItemForm.patchValue({
-            img: reader.result?.toString(),
+            img: this.imgUploadBase64
           });
           this.preview = reader.result?.toString();
         };
+        reader.readAsDataURL(file);
       }
     }
   }

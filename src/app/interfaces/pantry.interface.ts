@@ -4,5 +4,5 @@ export interface pantryItem {
     quantity: number;
     minQuantity: number;
     category: string;
-    image: string;
+    img: string;
 }

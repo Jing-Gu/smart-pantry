@@ -2,17 +2,9 @@ import { Component, inject, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonFab,
-  IonIcon,
-  IonFabButton,
-} from "@ionic/angular/standalone";
+import { IonicModule } from '@ionic/angular';
 import { addIcons } from "ionicons";
-import { add } from "ionicons/icons";
+import { add, remove } from "ionicons/icons";
 import { StorageService } from "../services/storage.service";
 import { pantryItem } from "../interfaces/pantry.interface";
 
@@ -22,13 +14,7 @@ import { pantryItem } from "../interfaces/pantry.interface";
   styleUrls: ["./pantry.page.scss"],
   standalone: true,
   imports: [
-    IonFabButton,
-    IonIcon,
-    IonFab,
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
+    IonicModule,
     CommonModule,
     FormsModule,
     RouterLink,
@@ -36,7 +22,7 @@ import { pantryItem } from "../interfaces/pantry.interface";
 })
 export class PantryPage implements OnInit {
   constructor() {
-    addIcons({ add });
+    addIcons({ add, remove });
   }
 
   private storageService = inject(StorageService);

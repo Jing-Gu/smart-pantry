@@ -26,6 +26,9 @@
             <img [src]="preview" class="h-auto w-full" />
             }
         </div>
+        @if(imageSize) {
+            <p class="text-blue-500">Image size: {{imageSize}}</p>
+        }
         <ion-input label="Name" type="text" fill="outline" label-placement="stacked" formControlName="name"></ion-input>
         <ion-input label="Quantity" type="number" fill="outline" label-placement="stacked" formControlName="quantity"></ion-input>
         <ion-select fill="outline" label-placement="stacked" formControlName="category">
