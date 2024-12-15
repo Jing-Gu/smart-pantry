@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>pantry</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if(pantryItems) {
+    <ion-list>
+      @for(item of pantryItems; track item.uuid) {
+        <ion-item button lines="full">
+          <ion-thumbnail slot="start">
+            <img [src]="item.img" />
+          </ion-thumbnail>
+          <ion-label class="capitalize">{{item.name}}
+          </ion-label>
+
+          <ion-button size="large" color="danger" fill="outline" slot="end">
+            <ion-icon slot="icon-only" name="remove"></ion-icon>
+          </ion-button>
+          <ion-label slot="end">{{item.quantity}}</ion-label>
+          <ion-button size="large" color="success" fill="outline" slot="end">
+            <ion-icon slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+        </ion-item>
+
+      }
+    </ion-list>
+
+  }@else {
+    <p>No pantry</p>
+  }
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button routerLink="add" color="primary">
+    <ion-icon name="add" />
+  </ion-fab-button>
+</ion-fab>

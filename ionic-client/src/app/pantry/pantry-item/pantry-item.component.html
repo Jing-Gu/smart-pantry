@@ -8,11 +8,11 @@
             <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
         </ion-button>
     </ion-toolbar>
-</ion-header>S
+</ion-header>
 
 <ion-content [fullscreen]="true">
-    <form [formGroup]="pantryItemForm" class="p-8 flex flex-col gap-6">
-        <div class="relative overflow-hidden border-2 border-dashed border-blue-500 rounded-xl mb-6">
+    <form [formGroup]="pantryItemForm" class="px-8 py-4 flex flex-col gap-4">
+        <div class="relative overflow-hidden border-2 border-dashed border-blue-500 rounded-xl">
             @if(!preview) {
             <div class="p-8">
                 <input class="absolute right-0 top-0 w-full h-full opacity-0 cursor-pointer" type="file" id="fileInput"
@@ -26,7 +26,20 @@
             <img [src]="preview" class="h-auto w-full" />
             }
         </div>
-        <ion-input label="Name" fill="outline" label-placement="stacked" formControlName="name"></ion-input>
+        @if(imageSize) {
+            <p class="text-blue-500">Image size: {{imageSize}}</p>
+        }
+        <ion-input label="Name" type="text" fill="outline" label-placement="stacked" formControlName="name"></ion-input>
+        <ion-input label="Quantity" type="number" fill="outline" label-placement="stacked" formControlName="quantity"></ion-input>
+        <ion-select fill="outline" label-placement="stacked" formControlName="category">
+            <div slot="label">Category</div>
+            @for(category of categories; track category.value) {
+                <ion-select-option [value]="category.value">
+                    {{category.label}}
+                </ion-select-option>
+            }
+        </ion-select>
+        <ion-input label="Minimim quantity warning" type="number" fill="outline" label-placement="stacked" formControlName="minQuantity"></ion-input>
 
     </form>
 </ion-content>

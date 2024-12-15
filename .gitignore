@@ -18,10 +18,10 @@ log.txt
 /coverage
 
 # Ionic
-/.ionic
-/www
-/platforms
-/plugins
+ionic-client/.ionic
+ionic-client/www
+ionic-client/platforms
+ionic-client/plugins
 
 # Compiled output
 /dist
@@ -30,8 +30,8 @@ log.txt
 /bazel-out
 
 # Node
-/node_modules
-npm-debug.log
+ionic-client/node_modules
+ionic-client/npm-debug.log
 yarn-error.log
 
 # IDEs and editors
@@ -54,9 +54,9 @@ yarn-error.log
 
 
 # Miscellaneous
-/.angular
-/.angular/cache
-.sass-cache/
+ionic-client/.angular
+ionic-client/.angular/cache
+ionic-client/.sass-cache/
 /.nx
 /.nx/cache
 /connect.lock
