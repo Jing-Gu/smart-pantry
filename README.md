@@ -2,6 +2,11 @@
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
+// TODO: about self-hosting
+// Tech stack
+
+## Changelog & version bump
+
 After git commit (follow conventional commits), run `npm run release` for version bump and changelog update.
 
 ```
