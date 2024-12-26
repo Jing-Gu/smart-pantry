@@ -18,14 +18,18 @@ jobs:
           node-version: "22"
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd ionic-client
+          npm install
 
       - name: Build the Ionic app
-        run: npm run build
+        run: |
+          cd ionic-client
+          npm run build
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1
         with:
-          publish-dir: ionic-client/www  # Correct path relative to the root of the repository
+          publish-dir: .www
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}  # Add your Netlify token as a secret
           netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}  # Add your Netlify site ID as a secret
