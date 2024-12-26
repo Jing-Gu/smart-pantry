@@ -6,29 +6,28 @@
 
 <ion-content [fullscreen]="true">
   @if(pantryItems) {
-    <ion-list>
-      @for(item of pantryItems; track item.uuid) {
-        <ion-item button lines="full">
-          <ion-thumbnail slot="start">
-            <img [src]="item.img" />
-          </ion-thumbnail>
-          <ion-label class="capitalize">{{item.name}}
-          </ion-label>
+  <ion-list>
+    @for(item of pantryItems; track item.uuid) {
+    <ion-item button lines="full">
+      <ion-thumbnail slot="start">
+        <img [src]="item.img" />
+      </ion-thumbnail>
+      <ion-label class="capitalize">{{item.name}} </ion-label>
 
-          <ion-button size="large" color="danger" fill="outline" slot="end">
-            <ion-icon slot="icon-only" name="remove"></ion-icon>
-          </ion-button>
-          <ion-label slot="end">{{item.quantity}}</ion-label>
-          <ion-button size="large" color="success" fill="outline" slot="end">
-            <ion-icon slot="icon-only" name="add"></ion-icon>
-          </ion-button>
-        </ion-item>
+      <ion-button size="large" color="danger" fill="outline" slot="end">
+        <ion-icon slot="icon-only" name="remove"></ion-icon>
+      </ion-button>
+      <ion-label slot="end">{{item.quantity}}</ion-label>
+      <ion-button size="large" color="success" fill="outline" slot="end">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-item>
 
-      }
-    </ion-list>
+    }
+  </ion-list>
 
   }@else {
-    <p>No pantry</p>
+  <p>No pantry</p>
   }
 </ion-content>
 

@@ -7,12 +7,10 @@ export const routes: Routes = [
   },
   {
     path: "pantry",
-    loadComponent: () =>
-      import("./pantry/pantry.page").then((m) => m.PantryPage),
+    loadComponent: () => import("./pantry/pantry.page").then((m) => m.PantryPage),
   },
   {
     path: "shopping",
-    loadComponent: () =>
-      import("./shopping/shopping.page").then((m) => m.ShoppingPage),
+    loadComponent: () => import("./shopping/shopping.page").then((m) => m.ShoppingPage),
   },
 ];

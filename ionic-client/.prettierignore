@@ -1,0 +1,4 @@
+src/assets/*
+www/
+.angular/
+node_modules/
