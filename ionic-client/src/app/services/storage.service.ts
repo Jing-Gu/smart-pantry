@@ -1,20 +1,18 @@
-import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
-import { pantryItem } from '../interfaces/pantry.interface';
-import { Subject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Storage } from "@ionic/storage-angular";
+import { pantryItem } from "../interfaces/pantry.interface";
+import { Subject } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class StorageService {
   constructor(private storage: Storage) {
-    this.init()
+    this.init();
   }
 
-  private _pantry: Subject<pantryItem[]> = new Subject<pantryItem[]>;
+  private _pantry: Subject<pantryItem[]> = new Subject<pantryItem[]>();
   public pantryObs = this._pantry.asObservable();
-
-
 
   async init() {
     await this.storage.create();
@@ -25,19 +23,18 @@ export class StorageService {
   }
 
   async getAllPantryItems(): Promise<pantryItem[]> {
-    const keys = await this.storage.keys()
-    const pantryItems: pantryItem[] = []
+    const keys = await this.storage.keys();
+    const pantryItems: pantryItem[] = [];
 
     if (keys) {
       for (const key of keys) {
-        const item = await this.storage.get(key)
+        const item = await this.storage.get(key);
         if (item) {
-          pantryItems.push(item)
+          pantryItems.push(item);
         }
       }
     }
     this._pantry.next(pantryItems);
     return pantryItems;
   }
-
 }
