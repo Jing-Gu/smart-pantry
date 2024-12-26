@@ -7,7 +7,7 @@
     "ng": "ng",
     "dev": "ng serve",
     "pretty": "npx prettier --write .",
-    "build": "ng build",
+    "build": "ionic build --prod",
     "build:gh-page": "ionic build --prod -- --base-href https://www.jinggu.dev/smart-pantry/",
     "deploy:gh-page": "npx angular-cli-ghpages --dir=www/",
     "release": "npx release-please release-pr",

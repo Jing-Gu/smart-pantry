@@ -1,11 +1,9 @@
-name: Build and deploy to Github page
+name: Build and Deploy to Netlify
 
 on:
-  # Trigger only on PR merge into the master branch
-  pull_request:
+  push:
     branches:
       - master
-    types: [closed]
 
 jobs:
   build:
@@ -22,10 +20,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build the Ionic app on gh-page
-        run: npm run build:gh-page
+      - name: Build the Ionic app
+        run: npm run build
 
-      - name: Deploy to GitHub Pages
-        run: npm run deploy:gh-page
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1
+        with:
+          publish-dir: ./ionic-client/www
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}  # Add your Netlify token as a secret
+          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}  # Add your Netlify site ID as a secret
