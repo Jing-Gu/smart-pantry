@@ -17,13 +17,14 @@ log.txt
 /.versions
 /coverage
 
+
 # Ionic
 ionic-client/.ionic
-ionic-client/www
 ionic-client/platforms
 ionic-client/plugins
 
 # Compiled output
+/www
 /dist
 /tmp
 /out-tsc
