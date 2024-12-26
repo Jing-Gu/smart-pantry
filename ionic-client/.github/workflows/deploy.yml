@@ -1,0 +1,29 @@
+name: Build and deploy to Github page
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the Ionic app on gh-page
+        run: npm run build:gh-page
+
+      - name: Deploy to GitHub Pages
+        run: npm run deploy:gh-page
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
