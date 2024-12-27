@@ -1,78 +1,49 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/pantry"></ion-back-button>
-    </ion-buttons>
-    <ion-button slot="end" (click)="saveItem()" [disabled]="!pantryItemForm.valid">
-      Save
-      <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/pantry"></ion-back-button>
+        </ion-buttons>
+        <ion-button slot="end" (click)="saveItem()" [disabled]="!pantryItemForm.valid">
+            Save
+            <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+        </ion-button>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <form [formGroup]="pantryItemForm" class="px-8 py-4 flex flex-col gap-4">
-    <div class="relative overflow-hidden border-2 border-dashed border-blue-500 rounded-xl">
-      @if (!preview) {
-        <div class="p-8">
-          <input
-            class="absolute right-0 top-0 w-full h-full opacity-0 cursor-pointer"
-            type="file"
-            id="fileInput"
-            (change)="onFileSelected($event)"
-            accept="image/*"
-          />
-          <ion-icon
-            name="cloud-upload-outline"
-            color="primary"
-            class="block w-12 h-12 mx-auto"
-          ></ion-icon>
-          <label class="inline-block w-full mt-4 text-blue-500 text-center" for="fileInput"
-            >Upload a photo</label
-          >
+    <form [formGroup]="pantryItemForm" class="px-8 py-4 flex flex-col gap-4">
+        <div class="relative overflow-hidden border-2 border-dashed border-blue-500 rounded-xl">
+            @if (!preview) {
+            <div class="p-8">
+                <input class="absolute right-0 top-0 w-full h-full opacity-0 cursor-pointer" type="file" id="fileInput"
+                    (change)="onFileSelected($event)" accept="image/*" />
+                <ion-icon name="cloud-upload-outline" color="primary" class="block w-12 h-12 mx-auto"></ion-icon>
+                <label class="inline-block w-full mt-4 text-blue-500 text-center" for="fileInput">Upload a photo</label>
+            </div>
+            } @else {
+            <input class="absolute right-0 top-0 w-full h-full opacity-0 cursor-pointer" type="file" id="fileInput"
+                (change)="onFileSelected($event)" accept="image/*" />
+            <img [src]="preview" class="h-auto w-full" />
+            }
         </div>
-      } @else {
-        <input
-          class="absolute right-0 top-0 w-full h-full opacity-0 cursor-pointer"
-          type="file"
-          id="fileInput"
-          (change)="onFileSelected($event)"
-          accept="image/*"
-        />
-        <img [src]="preview" class="h-auto w-full" />
-      }
-    </div>
-    @if (imageSize) {
-      <p class="text-blue-500">Image size: {{ imageSize }}</p>
-    }
-    <ion-input
-      label="Name"
-      type="text"
-      fill="outline"
-      label-placement="stacked"
-      formControlName="name"
-    ></ion-input>
-    <ion-input
-      label="Quantity"
-      type="number"
-      fill="outline"
-      label-placement="stacked"
-      formControlName="quantity"
-    ></ion-input>
-    <ion-select fill="outline" label-placement="stacked" formControlName="category">
-      <div slot="label">Category</div>
-      @for (category of categories; track category.value) {
-        <ion-select-option [value]="category.value">
-          {{ category.label }}
-        </ion-select-option>
-      }
-    </ion-select>
-    <ion-input
-      label="Minimim quantity warning"
-      type="number"
-      fill="outline"
-      label-placement="stacked"
-      formControlName="minQuantity"
-    ></ion-input>
-  </form>
+        @if (imageSize) {
+        <p class="text-blue-500">Image size: {{ imageSize }}</p>
+        }
+        <ion-input label="Name" type="text" fill="outline" label-placement="stacked" formControlName="name"></ion-input>
+        <ion-input label="Quantity" type="number" fill="outline" label-placement="stacked"
+            formControlName="quantity"></ion-input>
+        <ion-select fill="outline" label-placement="stacked" formControlName="category">
+            <div slot="label">Category</div>
+            @for (category of categories; track category.value) {
+            <ion-select-option [value]="category.value">
+                {{ category.label }}
+            </ion-select-option>
+            }
+        </ion-select>
+        <ion-input label="Minimim quantity warning" type="number" fill="outline" label-placement="stacked"
+            formControlName="minQuantity"></ion-input>
+        @if(uuid) {
+        <ion-button fill="outline" color="danger" (click)="deleteItem()">Delete</ion-button>
+        }
+    </form>
 </ion-content>
