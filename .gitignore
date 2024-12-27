@@ -22,6 +22,7 @@ log.txt
 ionic-client/.ionic
 ionic-client/platforms
 ionic-client/plugins
+ionic-client/www
 
 # Compiled output
 /www
