@@ -1,3 +1,6 @@
 [build]
-  publish = "www"
+  publish = "ionic-client/www"
   command = "cd ionic-client && npm install && npm run build"
+
+[build.environment]
+  NODE_VERSION = "22"
