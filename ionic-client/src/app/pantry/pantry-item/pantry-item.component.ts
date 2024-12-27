@@ -1,18 +1,11 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+// prettier-ignore
 import {
-  IonIcon,
-  IonContent,
-  IonHeader,
-  IonToolbar,
-  IonButtons,
-  IonBackButton,
-  IonButton,
-  IonInput,
-  IonSelect,
-  IonSelectOption,
+  IonIcon, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonButton,
+  IonInput, IonSelect, IonSelectOption
 } from "@ionic/angular/standalone";
 import { addIcons } from "ionicons";
 import { trash, checkmarkCircleOutline, cloudUploadOutline } from "ionicons/icons";
@@ -20,25 +13,17 @@ import { UntypedFormBuilder, ReactiveFormsModule, Validators, FormGroup } from "
 import { categories } from "../categories";
 import { v4 as uuidv4 } from "uuid";
 import { StorageService } from "src/app/services/storage.service";
+import { map, switchMap } from "rxjs";
+import { pantryItem } from "src/app/interfaces/pantry.interface";
 
 @Component({
   selector: "app-pantry-item",
   templateUrl: "./pantry-item.component.html",
   styleUrls: ["./pantry-item.component.scss"],
   standalone: true,
-  imports: [
-    IonSelect,
-    IonSelectOption,
-    IonInput,
-    IonButton,
-    IonIcon,
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonButtons,
-    IonBackButton,
-    CommonModule,
-    ReactiveFormsModule,
+  // prettier-ignore
+  imports: [IonSelect, IonSelectOption, IonInput, IonButton, IonIcon, IonContent,
+    IonHeader, IonToolbar, IonButtons, IonBackButton, CommonModule, ReactiveFormsModule,
   ],
 })
 export class PantryItemComponent implements OnInit {
@@ -48,6 +33,7 @@ export class PantryItemComponent implements OnInit {
 
   private fb = inject(UntypedFormBuilder);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private storageService = inject(StorageService);
 
   private validExt = ["image/jpg", "image/jpeg", "image/png"];
@@ -59,7 +45,7 @@ export class PantryItemComponent implements OnInit {
   protected imgUploadBase64: Uint8Array | undefined;
   protected imageSize: string = "";
 
-  //protected photo: string | undefined;
+  protected uuid = "";
 
   protected pantryItemForm = this.fb.group({
     uuid: [uuidv4()],
@@ -69,6 +55,20 @@ export class PantryItemComponent implements OnInit {
     category: ["", Validators.required],
     img: [""],
   });
+
+  private setFormValues(item: pantryItem | null) {
+    if (item) {
+      this.pantryItemForm.setValue({
+        uuid: item.uuid,
+        name: item.name,
+        quantity: item.quantity,
+        minQuantity: item.minQuantity,
+        category: item.category,
+        img: item.img,
+      });
+      this.preview = item.img;
+    }
+  }
 
   async takePhoto() {
     try {
@@ -131,5 +131,22 @@ export class PantryItemComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  protected deleteItem() {
+    if (this.uuid) {
+      this.storageService.deletePantryItem(this.uuid).then((_) => {
+        this.storageService.getAllPantryItems();
+      });
+      this.pantryItemForm.reset();
+      this.router.navigateByUrl("tabs/pantry");
+    }
+  }
+
+  ngOnInit() {
+    this.route.params
+      .pipe(
+        map((params) => (this.uuid = params["uuid"])),
+        switchMap((uuid) => this.storageService.getPantryItemByUuid(uuid)),
+      )
+      .subscribe((item) => this.setFormValues(item));
+  }
 }

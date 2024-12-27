@@ -5,28 +5,49 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  @if(pantryItems) {
+  @if($pantryItems | async; as pantryItems) {
   <ion-list>
-    @for(item of pantryItems; track item.uuid) {
-    <ion-item button lines="full">
-      <ion-thumbnail slot="start">
-        <img [src]="item.img" />
-      </ion-thumbnail>
-      <ion-label class="capitalize">{{item.name}} </ion-label>
+    @for(category of pantryCategories; track category.value) {
+    <div class="space-y-4">
+      <details class="group [&_summary::-webkit-details-marker]:hidden" open>
+        <summary
+          class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg bg-gray-50 p-4 text-gray-900">
+          <h2 class="font-medium">{{category.label}}</h2>
+          <svg class="size-5 shrink-0 transition duration-300 group-open:-rotate-180" xmlns="http://www.w3.org/2000/svg"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </summary>
 
-      <ion-button size="large" color="danger" fill="outline" slot="end">
-        <ion-icon slot="icon-only" name="remove"></ion-icon>
-      </ion-button>
-      <ion-label slot="end">{{item.quantity}}</ion-label>
-      <ion-button size="large" color="success" fill="outline" slot="end">
-        <ion-icon slot="icon-only" name="add"></ion-icon>
-      </ion-button>
-    </ion-item>
+        @for(item of pantryItems; track item.uuid) {
+        <!-- prettier-ignore -->
+        @if(item.category === category.value) {
+        <ion-item button lines="full" [routerLink]="item.uuid">
+          <ion-thumbnail slot="start">
+            <img [src]="item.img" class="h-full" />
+          </ion-thumbnail>
+          <ion-label class="capitalize">{{item.name}}</ion-label>
 
+          <ion-button size="large" color="danger" fill="outline" slot="end"
+            (click)="onUpdateQuantity($event, item, 'minus')">
+            <ion-icon slot="icon-only" name="remove"></ion-icon>
+          </ion-button>
+          <ion-label slot="end" class="w-[18px] text-right"
+            [ngClass]="item.quantity < item.minQuantity ? '!text-red-500': ''">
+            {{item.quantity}}
+          </ion-label>
+          <ion-button size="large" color="success" fill="outline" slot="end"
+            (click)="onUpdateQuantity($event, item, 'add')">
+            <ion-icon slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+        </ion-item>
+        }
+        }
+      </details>
+    </div>
     }
   </ion-list>
-
-  }@else {
+  } @else {
   <p>No pantry</p>
   }
 </ion-content>

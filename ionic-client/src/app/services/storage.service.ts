@@ -12,6 +12,7 @@ export class StorageService {
   }
 
   private _pantry: Subject<pantryItem[]> = new Subject<pantryItem[]>();
+  private _currentPantryItem: Subject<pantryItem> = new Subject<pantryItem>();
   public pantryObs = this._pantry.asObservable();
 
   async init() {
@@ -36,5 +37,15 @@ export class StorageService {
     }
     this._pantry.next(pantryItems);
     return pantryItems;
+  }
+
+  async getPantryItemByUuid(uuid: string): Promise<pantryItem | null> {
+    const pantryItem = await this.storage.get(uuid);
+    this._currentPantryItem.next(pantryItem);
+    return pantryItem;
+  }
+
+  async deletePantryItem(uuid: string): Promise<void> {
+    await this.storage.remove(uuid);
   }
 }

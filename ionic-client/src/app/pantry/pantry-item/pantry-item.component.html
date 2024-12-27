@@ -74,5 +74,8 @@
       label-placement="stacked"
       formControlName="minQuantity"
     ></ion-input>
+    @if (uuid) {
+      <ion-button fill="outline" color="danger" (click)="deleteItem()">Delete</ion-button>
+    }
   </form>
 </ion-content>
