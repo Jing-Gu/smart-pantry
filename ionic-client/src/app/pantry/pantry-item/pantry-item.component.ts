@@ -64,7 +64,7 @@ export class PantryItemComponent implements OnInit {
         quantity: item.quantity,
         minQuantity: item.minQuantity,
         category: item.category,
-        img: item.img
+        img: item.img,
       });
       this.preview = item.img;
     }
@@ -133,18 +133,20 @@ export class PantryItemComponent implements OnInit {
 
   protected deleteItem() {
     if (this.uuid) {
-      this.storageService.deletePantryItem(this.uuid).then(_ => {
+      this.storageService.deletePantryItem(this.uuid).then((_) => {
         this.storageService.getAllPantryItems();
-      })
+      });
       this.pantryItemForm.reset();
       this.router.navigateByUrl("tabs/pantry");
     }
   }
 
   ngOnInit() {
-    this.route.params.pipe(
-      map(params => this.uuid = params['uuid']),
-      switchMap(uuid => this.storageService.getPantryItemByUuid(uuid))
-    ).subscribe(item => this.setFormValues(item));
+    this.route.params
+      .pipe(
+        map((params) => (this.uuid = params["uuid"])),
+        switchMap((uuid) => this.storageService.getPantryItemByUuid(uuid)),
+      )
+      .subscribe((item) => this.setFormValues(item));
   }
 }

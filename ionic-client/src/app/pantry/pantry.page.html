@@ -6,7 +6,6 @@
 
 <ion-content [fullscreen]="true">
   @if($pantryItems | async; as pantryItems) {
-  @if(pantryItems) {
   <ion-list>
     @for(category of pantryCategories; track category.value) {
     <div class="space-y-4">
@@ -21,6 +20,7 @@
         </summary>
 
         @for(item of pantryItems; track item.uuid) {
+        <!-- prettier-ignore -->
         @if(item.category === category.value) {
         <ion-item button lines="full" [routerLink]="item.uuid">
           <ion-thumbnail slot="start">
@@ -49,7 +49,6 @@
   </ion-list>
   } @else {
   <p>No pantry</p>
-  }
   }
 </ion-content>
 

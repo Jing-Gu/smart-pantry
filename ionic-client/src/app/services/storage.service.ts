@@ -12,7 +12,7 @@ export class StorageService {
   }
 
   private _pantry: Subject<pantryItem[]> = new Subject<pantryItem[]>();
-  private _currentPantryItem: Subject<pantryItem> = new Subject<pantryItem>;
+  private _currentPantryItem: Subject<pantryItem> = new Subject<pantryItem>();
   public pantryObs = this._pantry.asObservable();
 
   async init() {
