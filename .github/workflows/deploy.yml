@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'ionic-client/**'  # Only trigger when files in ionic-client are changed
 
 jobs:
   build:
@@ -12,24 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "22"
-
-      - name: Install dependencies
-        run: |
-          cd ionic-client
-          npm install
-
-      - name: Build the Ionic app
-        run: |
-          cd ionic-client
-          npm run build
-
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1
         with:
-          publish-dir: .www
-          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}  # Add your Netlify token as a secret
-          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}  # Add your Netlify site ID as a secret
+          publish-dir: ionic-client/www  # The directory where the build output is located
+          deploy-dir: ionic-client/www   # The directory to deploy from
