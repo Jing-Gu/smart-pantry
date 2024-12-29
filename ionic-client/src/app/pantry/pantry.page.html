@@ -1,11 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>pantry</ion-title>
+    <ion-title>Pantry</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   @if($pantryItems | async; as pantryItems) {
+  <!-- prettier-ignore -->
+  @if(pantryItems.length > 0) {
   <ion-list>
     @for(category of pantryCategories; track category.value) {
     <div class="space-y-4">
@@ -32,8 +34,7 @@
             (click)="onUpdateQuantity($event, item, 'minus')">
             <ion-icon slot="icon-only" name="remove"></ion-icon>
           </ion-button>
-          <ion-label slot="end" class="w-[18px] text-right"
-            [ngClass]="item.quantity < item.minQuantity ? '!text-red-500': ''">
+          <ion-label slot="end" class="w-[18px] text-right" [ngClass]="item.under_stock ? '!text-red-500': ''">
             {{item.quantity}}
           </ion-label>
           <ion-button size="large" color="success" fill="outline" slot="end"
@@ -41,14 +42,16 @@
             <ion-icon slot="icon-only" name="add"></ion-icon>
           </ion-button>
         </ion-item>
-        }
-        }
+        } }
       </details>
     </div>
     }
   </ion-list>
   } @else {
-  <p>No pantry</p>
+  <p class="p-4">No pantry</p>
+  }
+  } @else {
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
   }
 </ion-content>
 

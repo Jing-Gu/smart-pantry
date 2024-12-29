@@ -5,7 +5,7 @@ import { FormsModule } from "@angular/forms";
 // prettier-ignore
 import {
   IonHeader, IonTitle, IonToolbar, IonContent, IonItem, IonThumbnail, IonLabel,
-  IonList, IonButton, IonFab, IonFabButton, IonIcon
+  IonList, IonButton, IonFab, IonFabButton, IonIcon, IonProgressBar
 } from "@ionic/angular/standalone";
 import { addIcons } from "ionicons";
 import { add, remove } from "ionicons/icons";
@@ -20,9 +20,9 @@ import { Observable, of } from "rxjs";
   styleUrls: ["./pantry.page.scss"],
   standalone: true,
   // prettier-ignore
-  imports: [IonHeader, IonTitle, IonToolbar, IonContent, IonItem, IonThumbnail, IonLabel,
-    IonList, IonButton, IonFab, IonFabButton, IonIcon, CommonModule, FormsModule,
-    RouterLink
+  imports: [IonHeader, IonTitle, IonToolbar,
+    IonContent, IonItem, IonThumbnail, IonLabel, IonList, IonButton, IonFab, IonFabButton,
+    IonIcon, IonProgressBar, CommonModule, FormsModule, RouterLink
   ],
 })
 export class PantryPage implements OnInit {
@@ -38,15 +38,19 @@ export class PantryPage implements OnInit {
 
   protected onUpdateQuantity(event: MouseEvent, item: pantryItem, flag: "minus" | "add") {
     event.stopPropagation();
-    let newQuantity = 0;
     if (flag === "minus") {
-      newQuantity = item.quantity - 1;
+      item.quantity--;
     } else if (flag === "add") {
-      newQuantity = item.quantity + 1;
+      item.quantity++;
     }
-    const updatedItem = { ...item, quantity: newQuantity };
-    this.storageService.addPantryItem(updatedItem).then((_) => {
+    if (item.quantity < item.minQuantity) {
+      item.under_stock = true;
+    } else {
+      item.under_stock = false;
+    }
+    this.storageService.addPantryItem(item).then((_) => {
       this.storageService.getAllPantryItems();
+      this.storageService.getItemsUnderStock();
     });
   }
 

@@ -12,8 +12,10 @@ export class StorageService {
   }
 
   private _pantry: Subject<pantryItem[]> = new Subject<pantryItem[]>();
+  private _pantryToBuy: Subject<pantryItem[]> = new Subject<pantryItem[]>();
   private _currentPantryItem: Subject<pantryItem> = new Subject<pantryItem>();
   public pantryObs = this._pantry.asObservable();
+  public pantryToBuyObs = this._pantryToBuy.asObservable();
 
   async init() {
     await this.storage.create();
@@ -37,6 +39,22 @@ export class StorageService {
     }
     this._pantry.next(pantryItems);
     return pantryItems;
+  }
+
+  async getItemsUnderStock(): Promise<pantryItem[]> {
+    const keys = await this.storage.keys();
+    const pantryItemsToBuy: pantryItem[] = [];
+
+    if (keys) {
+      for (const key of keys) {
+        const item = await this.storage.get(key);
+        if (item && item.under_stock) {
+          pantryItemsToBuy.push(item);
+        }
+      }
+    }
+    this._pantryToBuy.next(pantryItemsToBuy);
+    return pantryItemsToBuy;
   }
 
   async getPantryItemByUuid(uuid: string): Promise<pantryItem | null> {

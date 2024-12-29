@@ -54,6 +54,7 @@ export class PantryItemComponent implements OnInit {
     minQuantity: ["", Validators.required],
     category: ["", Validators.required],
     img: [""],
+    under_stock: [false],
   });
 
   private setFormValues(item: pantryItem | null) {
@@ -65,6 +66,7 @@ export class PantryItemComponent implements OnInit {
         minQuantity: item.minQuantity,
         category: item.category,
         img: item.img,
+        under_stock: item.under_stock,
       });
       this.preview = item.img;
     }
@@ -122,8 +124,10 @@ export class PantryItemComponent implements OnInit {
   }
 
   protected saveItem() {
-    if (this.pantryItemForm) {
-      this.storageService.addPantryItem(this.pantryItemForm.value).then((_) => {
+    if (this.pantryItemForm?.valid) {
+      const formValue = this.pantryItemForm.value;
+      formValue.under_stock = formValue.quantity < formValue.minQuantity;
+      this.storageService.addPantryItem(formValue).then((_) => {
         this.storageService.getAllPantryItems();
       });
       this.pantryItemForm.reset();
