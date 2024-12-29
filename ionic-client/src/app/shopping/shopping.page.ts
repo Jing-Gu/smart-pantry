@@ -1,17 +1,28 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import { IonContent, IonHeader, IonTitle, IonToolbar } from "@ionic/angular/standalone";
+// prettier-ignore
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel } from "@ionic/angular/standalone";
+import { StorageService } from "../services/storage.service";
+import { Observable, of } from "rxjs";
+import { pantryItem } from "../interfaces/pantry.interface";
 
 @Component({
   selector: "app-shopping",
   templateUrl: "./shopping.page.html",
   styleUrls: ["./shopping.page.scss"],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule],
+  imports: [IonLabel, IonItem, IonList, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule],
 })
 export class ShoppingPage implements OnInit {
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  private storageService = inject(StorageService);
+
+  protected $pantryItemsToBuy: Observable<pantryItem[]> = of([]);
+
+  ngOnInit() {
+    this.storageService.getItemsUnderStock();
+    this.$pantryItemsToBuy = this.storageService.pantryToBuyObs;
+  }
 }

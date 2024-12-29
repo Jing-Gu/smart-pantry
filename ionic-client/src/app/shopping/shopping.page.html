@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>shopping</ion-title>
+    <ion-title>Shopping</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,4 +10,17 @@
       <ion-title size="large">shopping</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  @if($pantryItemsToBuy | async; as pantryItemsToBuy) {
+  <!-- prettier-ignore -->
+  @if(pantryItemsToBuy.length > 0) {
+  <ion-list>
+    @for(toBuy of pantryItemsToBuy; track toBuy.uuid) {
+    <ion-item class="capitalize">{{toBuy.name}}
+      <ion-label slot="end"> {{toBuy.minQuantity - toBuy.quantity}} </ion-label>
+    </ion-item>
+    }
+  </ion-list>
+  }
+  }
 </ion-content>
