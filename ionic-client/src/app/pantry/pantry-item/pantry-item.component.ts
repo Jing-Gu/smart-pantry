@@ -1,14 +1,14 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
+// import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 // prettier-ignore
 import {
   IonIcon, IonContent, IonHeader, IonToolbar, IonButtons, IonBackButton, IonButton,
   IonInput, IonSelect, IonSelectOption
 } from "@ionic/angular/standalone";
 import { addIcons } from "ionicons";
-import { trash, checkmarkCircleOutline, cloudUploadOutline } from "ionicons/icons";
+import { trash, checkmarkCircleOutline, imageOutline } from "ionicons/icons";
 import { UntypedFormBuilder, ReactiveFormsModule, Validators, FormGroup } from "@angular/forms";
 import { categories } from "../categories";
 import { v4 as uuidv4 } from "uuid";
@@ -28,7 +28,7 @@ import { pantryItem } from "src/app/interfaces/pantry.interface";
 })
 export class PantryItemComponent implements OnInit {
   constructor() {
-    addIcons({ trash, checkmarkCircleOutline, cloudUploadOutline });
+    addIcons({ trash, checkmarkCircleOutline, imageOutline });
   }
 
   private fb = inject(UntypedFormBuilder);
@@ -72,30 +72,23 @@ export class PantryItemComponent implements OnInit {
     }
   }
 
-  async takePhoto() {
-    try {
-      // Mock implementation for browser environment
-      if (window.location.hostname === "localhost") {
-        this.preview = "https://placehold.co/600x400";
-      } else {
-        const image = await Camera.getPhoto({
-          resultType: CameraResultType.Uri, // You can also use CameraResultType.Base64
-          source: CameraSource.Camera, // Open the camera
-          quality: 90, // Adjust photo quality (0-100)
-        });
+  // async takePhoto() {
+  //   try {
+  //     const image = await Camera.getPhoto({
+  //       resultType: CameraResultType.Uri, // You can also use CameraResultType.Base64
+  //       source: CameraSource.Prompt, // Open the camera or select from album
+  //       quality: 90, // Adjust photo quality (0-100)
+  //     });
 
-        // The image web path contains the local URL of the photo
-        this.preview = image.webPath;
+  //     // The image web path contains the local URL of the photo
+  //     this.preview = image.webPath;
 
-        // For base64 encoded image, you can access it like this:
-        // this.photo = 'data:image/jpeg;base64,' + image.base64String;
-
-        console.log("Photo taken:", this.preview);
-      }
-    } catch (error) {
-      console.error("Error taking photo:", error);
-    }
-  }
+  //     // For base64 encoded image, you can access it like this:
+  //     // this.photo = 'data:image/jpeg;base64,' + image.base64String;
+  //   } catch (error) {
+  //     console.error("Error taking photo:", error);
+  //   }
+  // }
 
   async onFileSelected(event: any) {
     this.errors = [];
