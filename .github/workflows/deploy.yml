@@ -27,7 +27,7 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
-        run: npm install
+        run: cd ionic-client && npm install
 
       - name: Run release-please to create release
-        run: npx release-please release --token ${{ secrets.GITHUB_TOKEN }} --changelog
+        run: cd ionic-client && npx release-please release --token ${{ secrets.GITHUB_TOKEN }} --changelog
