@@ -5,7 +5,8 @@ on:
     branches:
       - master
     paths:
-      - 'ionic-client/**'  # Only trigger when files in ionic-client are changed
+      - 'ionic-client/**'
+      - '.github/**'
 
 jobs:
   build:
