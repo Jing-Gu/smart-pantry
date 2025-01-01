@@ -19,3 +19,15 @@ jobs:
         with:
           publish-dir: ionic-client/www  # The directory where the build output is located
           deploy-dir: ionic-client/www   # The directory to deploy from
+
+      # Run release-please to create changelog and release
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run release-please to create release
+        run: npx release-please release --token ${{ secrets.GITHUB_TOKEN }} --changelog
