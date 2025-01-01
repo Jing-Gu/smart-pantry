@@ -23,6 +23,7 @@ ionic-client/.ionic
 ionic-client/platforms
 ionic-client/plugins
 ionic-client/www
+ionic-client/android
 
 # Compiled output
 /www
