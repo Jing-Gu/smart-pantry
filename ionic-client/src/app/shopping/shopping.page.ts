@@ -22,7 +22,7 @@ export class ShoppingPage implements OnInit {
   protected $pantryItemsToBuy: Observable<pantryItem[]> = of([]);
 
   ngOnInit() {
-    this.storageService.getItemsUnderStock();
+    this.storageService.getAllPantryItems();
     this.$pantryItemsToBuy = this.storageService.pantryToBuyObs;
   }
 }

@@ -20,6 +20,10 @@ export const categories = [
     label: "Grains, pasta, rice",
   },
   {
+    value: "frozen",
+    label: "Frozen food"
+  },
+  {
     value: "cleanings",
     label: "Cleaning products",
   },
