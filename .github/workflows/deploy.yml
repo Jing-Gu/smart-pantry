@@ -19,3 +19,8 @@ jobs:
         with:
           publish-dir: ionic-client/www  # The directory where the build output is located
           deploy-dir: ionic-client/www   # The directory to deploy from
+
+      - name: Release
+        uses: google-github-actions/release-please-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -3,8 +3,10 @@
     "bump": "minor"
   },
   "changelog": {
+    "path": "CHANGELOG.md",
     "section-title": "## Changelog",
-    "version-resolver": "v"
+    "version-resolver": "v",
+    "template": "## {{version}} ({{date}})\n{{#each commits}}- {{message}} ({{author.name}})\n{{/each}}"
   },
   "release-type": "node"
 }
