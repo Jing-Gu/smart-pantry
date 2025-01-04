@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'ionic-client/**'
+      - '.github/**'
 
 jobs:
   build:
@@ -24,3 +25,4 @@ jobs:
         uses: google-github-actions/release-please-action@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: "node"
