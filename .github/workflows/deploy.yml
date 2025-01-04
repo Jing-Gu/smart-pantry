@@ -6,7 +6,6 @@ on:
       - master
     paths:
       - 'ionic-client/**'
-      - '.github/**'
 
 jobs:
   build:
@@ -21,14 +20,7 @@ jobs:
           publish-dir: ionic-client/www  # The directory where the build output is located
           deploy-dir: ionic-client/www   # The directory to deploy from
 
-      # Run release-please to create changelog and release
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Release
+        uses: google-github-actions/release-please-action@v2
         with:
-          node-version: '22'
-
-      - name: Install dependencies
-        run: cd ionic-client && npm install
-
-      - name: Run release-please to create release
-        run: cd ionic-client && npx release-please release --token ${{ secrets.GITHUB_TOKEN }} --changelog
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -50,7 +50,6 @@ export class PantryPage implements OnInit {
     }
     this.storageService.addPantryItem(item).then((_) => {
       this.storageService.getAllPantryItems();
-      this.storageService.getItemsUnderStock();
     });
   }
 
